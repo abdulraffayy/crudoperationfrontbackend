@@ -11,14 +11,74 @@ import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
 import { X, Check } from "lucide-react"
+import { useState } from "react"
+import { toast } from "sonner"
 
 interface EditDialogueProps {
   children: React.ReactNode
+  onUserAdded?: () => void;
 }
 
-const adddialouge = ({ children }: EditDialogueProps) => {
+const Adddialouge = ({ children, onUserAdded }: EditDialogueProps) => {
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [age, setAge] = useState('')
+  const [job, setJob] = useState('')
+  const [salary, setSalary] = useState('')
+
+  const resetForm = () => {
+    setName('')
+    setEmail('')
+    setAge('')
+    setJob('')
+    setSalary('')
+  }
+
+  const handleSave = async () => {
+    if (!name || !email || !age || !job || !salary) {
+      toast.error('Please fill in all fields')
+      return
+    }
+
+    const newUser = {
+      name,
+      email,
+      age: parseInt(age),
+      job,
+      salary: parseFloat(salary),
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Failed to add user')
+      }
+
+      if (onUserAdded) {
+        onUserAdded()
+      }
+
+      toast.success('User added successfully')
+      setOpen(false)
+      resetForm()
+
+    } catch (error) {
+      console.error('Error adding user:', error)
+      toast.error(error instanceof Error ? error.message : 'Failed to add user')
+    }
+  }
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
@@ -36,6 +96,8 @@ const adddialouge = ({ children }: EditDialogueProps) => {
             </Label>
             <Input
               id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="Enter user name"
               className="col-span-3"
             />
@@ -47,6 +109,8 @@ const adddialouge = ({ children }: EditDialogueProps) => {
             <Input
               id="email"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter email address"
               className="col-span-3"
             />
@@ -58,6 +122,8 @@ const adddialouge = ({ children }: EditDialogueProps) => {
             <Input
               id="age"
               type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
               placeholder="Enter age"
               className="col-span-3"
             />
@@ -68,6 +134,8 @@ const adddialouge = ({ children }: EditDialogueProps) => {
             </Label>
             <Input
               id="job"
+              value={job}
+              onChange={(e) => setJob(e.target.value)}
               placeholder="Enter job title"
               className="col-span-3"
             />
@@ -79,6 +147,8 @@ const adddialouge = ({ children }: EditDialogueProps) => {
             <Input
               id="salary"
               type="number"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
               placeholder="Enter salary amount"
               className="col-span-3"
             />
@@ -88,11 +158,16 @@ const adddialouge = ({ children }: EditDialogueProps) => {
           <Button
             variant="outline"
             className="flex items-center gap-2"
+            onClick={() => {
+              setOpen(false)
+              resetForm()
+            }}
           >
             <X className="h-4 w-4" />
             Cancel
           </Button>
           <Button
+            onClick={handleSave}
             className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
           >
             <Check className="h-4 w-4" />
@@ -104,4 +179,4 @@ const adddialouge = ({ children }: EditDialogueProps) => {
   )
 }
 
-export default adddialouge
+export default Adddialouge

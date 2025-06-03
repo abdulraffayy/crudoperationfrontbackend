@@ -1,13 +1,12 @@
 import './App.css'
 import TableData from './pages/TableData'
-
+import { Toaster } from 'sonner'
 
 function App() {
-
   return (
     <>
-    <TableData />
-        
+      <TableData />
+      <Toaster richColors position="top-right" />
     </>
   )
 }

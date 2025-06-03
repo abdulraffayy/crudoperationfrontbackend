@@ -14,13 +14,12 @@ import Editdialouge from "../dialouge/Editdialouge"
 import Adddialouge from "../dialouge/adddialouge"
 
 interface User {
-  id: number
+  _id: string
   name: string
   email: string
   age: number
   job: string
   salary: number
-  
 }
 
 const TableData = () => {
@@ -67,7 +66,7 @@ const TableData = () => {
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Users Table</h1>
-        <Adddialouge>
+        <Adddialouge onUserAdded={fetchUsers}>
           <Button 
             variant="ghost"
             size="icon"
@@ -107,7 +106,7 @@ const TableData = () => {
               </TableRow>
             ) : (
               users.map((user) => (
-                <TableRow key={user.id}>
+                <TableRow key={user._id}>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.age}</TableCell>
@@ -115,7 +114,10 @@ const TableData = () => {
                   <TableCell>{user.salary}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Editdialouge>
+                      <Editdialouge 
+                        userData={user}
+                        onUserUpdated={fetchUsers}
+                      >
                         <Button 
                           variant="ghost" 
                           size="icon"
@@ -124,7 +126,10 @@ const TableData = () => {
                           <Pencil className="h-4 w-4" />
                         </Button>
                       </Editdialouge>
-                      <DeletePopup>
+                      <DeletePopup
+                        userId={user._id}
+                        onUserDeleted={fetchUsers}
+                      >
                         <Button 
                           variant="ghost" 
                           size="icon"
