@@ -11,6 +11,7 @@ import { Button } from "../components/ui/button"
 import { Loader2, Trash2, Plus, Pencil } from "lucide-react"
 import DeletePopup from "../dialouge/deletepopup"
 import Editdialouge from "../dialouge/Editdialouge"
+import Adddialouge from "../dialouge/adddialouge"
 
 interface User {
   id: number
@@ -19,7 +20,7 @@ interface User {
   age: number
   job: string
   salary: number
-  // Add other fields as per your API response
+  
 }
 
 const TableData = () => {
@@ -66,17 +67,15 @@ const TableData = () => {
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Users Table</h1>
-        <Button 
-          variant="ghost"
-          size="icon"
-          className="hover:bg-green-100 hover:text-green-600"
-          onClick={() => {
-            // Add your add user handler here
-            console.log('Add new user')
-          }}
-        >
-          <Plus className="h-5 w-5" />
-        </Button>
+        <Adddialouge>
+          <Button 
+            variant="ghost"
+            size="icon"
+            className="hover:bg-green-100 hover:text-green-600"
+          >
+            <Plus className="h-5 w-5" />
+          </Button>
+        </Adddialouge>
       </div>
 
       <div className="rounded-md border">
@@ -116,7 +115,7 @@ const TableData = () => {
                   <TableCell>{user.salary}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Editdialouge userData={user}>
+                      <Editdialouge>
                         <Button 
                           variant="ghost" 
                           size="icon"

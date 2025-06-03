@@ -16,7 +16,7 @@ interface EditDialogueProps {
   children: React.ReactNode
 }
 
-const Editdialouge = ({ children }: EditDialogueProps) => {
+const adddialouge = ({ children }: EditDialogueProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -24,9 +24,9 @@ const Editdialouge = ({ children }: EditDialogueProps) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit User</DialogTitle>
+          <DialogTitle>Add User</DialogTitle>
           <DialogDescription>
-            Make changes to user information here. Click save when you're done.
+            Add user information here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -104,4 +104,4 @@ const Editdialouge = ({ children }: EditDialogueProps) => {
   )
 }
 
-export default Editdialouge
+export default adddialouge
