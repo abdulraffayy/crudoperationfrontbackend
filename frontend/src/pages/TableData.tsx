@@ -9,6 +9,8 @@ import {
 } from "../components/ui/table"
 import { Button } from "../components/ui/button"
 import { Loader2, Trash2, Plus, Pencil } from "lucide-react"
+import DeletePopup from "../dialouge/deletepopup"
+import Editdialouge from "../dialouge/Editdialouge"
 
 interface User {
   id: number
@@ -92,7 +94,7 @@ const TableData = () => {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={4} className="text-center py-8">
+                <TableCell colSpan={6} className="text-center py-8">
                   <div className="flex items-center justify-center">
                     <Loader2 className="h-6 w-6 animate-spin" />
                   </div>
@@ -100,7 +102,7 @@ const TableData = () => {
               </TableRow>
             ) : users.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} className="text-center py-8">
+                <TableCell colSpan={6} className="text-center py-8">
                   No users found
                 </TableCell>
               </TableRow>
@@ -112,32 +114,26 @@ const TableData = () => {
                   <TableCell>{user.age}</TableCell>
                   <TableCell>{user.job}</TableCell>
                   <TableCell>{user.salary}</TableCell>
-
-
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        className="hover:bg-blue-100 hover:text-blue-600"
-                        onClick={() => {
-                          // Add your edit handler here
-                          console.log('Edit user:', user.id)
-                        }}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        className="hover:bg-red-100 hover:text-red-600"
-                        onClick={() => {
-                          // Add your delete handler here
-                          console.log('Delete user:', user.id)
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <Editdialouge userData={user}>
+                        <Button 
+                          variant="ghost" 
+                          size="icon"
+                          className="hover:bg-blue-100 hover:text-blue-600"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                      </Editdialouge>
+                      <DeletePopup>
+                        <Button 
+                          variant="ghost" 
+                          size="icon"
+                          className="hover:bg-red-100 hover:text-red-600"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </DeletePopup>
                     </div>
                   </TableCell>
                 </TableRow>
