@@ -63,9 +63,9 @@ const TableData = () => {
   }
 
   return (
-    <div className="container mx-auto py-10">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Users Table</h1>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Users Table</h1>
         <Adddialouge onUserAdded={fetchUsers}>
           <Button 
             variant="ghost"
@@ -77,16 +77,16 @@ const TableData = () => {
         </Adddialouge>
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Age</TableHead>
-              <TableHead>Job</TableHead>
-              <TableHead>Salary</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="w-[20%]">Name</TableHead>
+              <TableHead className="w-[25%]">Email</TableHead>
+              <TableHead className="w-[10%] hidden sm:table-cell">Age</TableHead>
+              <TableHead className="w-[20%] hidden md:table-cell">Job</TableHead>
+              <TableHead className="w-[15%] hidden lg:table-cell">Salary</TableHead>
+              <TableHead className="w-[10%] text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -107,11 +107,11 @@ const TableData = () => {
             ) : (
               users.map((user) => (
                 <TableRow key={user._id}>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.age}</TableCell>
-                  <TableCell>{user.job}</TableCell>
-                  <TableCell>{user.salary}</TableCell>
+                  <TableCell className="font-medium">{user.name}</TableCell>
+                  <TableCell className="truncate max-w-[200px]">{user.email}</TableCell>
+                  <TableCell className="hidden sm:table-cell">{user.age}</TableCell>
+                  <TableCell className="hidden md:table-cell">{user.job}</TableCell>
+                  <TableCell className="hidden lg:table-cell">${user.salary.toLocaleString()}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Editdialouge 
