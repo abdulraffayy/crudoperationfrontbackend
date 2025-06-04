@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/package.json",
+      "src": "backend/index.ts",
       "use": "@vercel/node",
       "config": {
         "includeFiles": ["dist/**"]
@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "backend/dist/index.js"
+      "dest": "backend/dist/index.ts"
     }
   ]
 } 
