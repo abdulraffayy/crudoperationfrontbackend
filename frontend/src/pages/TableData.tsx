@@ -8,10 +8,10 @@ import {
   TableRow,
 } from "../components/ui/table"
 import { Button } from "../components/ui/button"
-import { Loader2, Trash2, Plus, Pencil } from "lucide-react"
-import DeletePopup from "../dialouge/deletepopup"
-import Editdialouge from "../dialouge/Editdialouge"
-import Adddialouge from "../dialouge/adddialouge"
+  import { Loader2, Trash2, Plus, Pencil } from "lucide-react"
+  import DeletePopup from "../dialouge/deletepopup"
+  import EditDialogue from "../dialouge/Editdialouge"
+  import AddDialogue from "../dialouge/adddialouge"
 
 interface User {
   _id: string
@@ -66,7 +66,7 @@ const TableData = () => {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Users Table</h1>
-        <Adddialouge onUserAdded={fetchUsers}>
+        <AddDialogue onUserAdded={fetchUsers}>
           <Button 
             variant="ghost"
             size="icon"
@@ -74,7 +74,7 @@ const TableData = () => {
           >
             <Plus className="h-5 w-5" />
           </Button>
-        </Adddialouge>
+        </AddDialogue>
       </div>
 
       <div className="rounded-md border overflow-x-auto">
@@ -114,7 +114,7 @@ const TableData = () => {
                   <TableCell className="hidden lg:table-cell">${user.salary.toLocaleString()}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Editdialouge 
+                      <EditDialogue 
                         userData={user}
                         onUserUpdated={fetchUsers}
                       >
@@ -125,7 +125,7 @@ const TableData = () => {
                         >
                           <Pencil className="h-4 w-4" />
                         </Button>
-                      </Editdialouge>
+                      </EditDialogue>
                       <DeletePopup
                         userId={user._id}
                         onUserDeleted={fetchUsers}
