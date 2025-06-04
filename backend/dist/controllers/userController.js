@@ -14,7 +14,7 @@ const Usermodel_1 = require("../model/Usermodel");
 // Get all users
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield Usermodel_1.User.find();
+        const users = yield Usermodel_1.User.find().sort({ name: 1 });
         res.json(users);
     }
     catch (error) {
