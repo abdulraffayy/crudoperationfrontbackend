@@ -27,10 +27,15 @@ app.get('/', (req: Request, res: Response) => {
 // User routes
 app.use('/api', userRoutes);
 
-// Populate database with sample data
+// Populate database
 populateDatabase();
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}); 
+// ✅ Sirf local pe server start karo
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Server is running locally on port ${port}`);
+  });
+}
+
+// ✅ Vercel ke liye export
+export default app;
