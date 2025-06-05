@@ -29,11 +29,7 @@ const DeletePopup = ({ children, userId, onUserDeleted }: DeletePopupProps) => {
     }
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
-      if (!apiUrl) {
-        throw new Error('API URL is not configured. Please check your environment variables.');
-      }
-      const response = await fetch(`${apiUrl}/api/users/${userId}`, {
+      const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
         method: 'DELETE',
       })
 
