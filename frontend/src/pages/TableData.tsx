@@ -33,9 +33,13 @@ const TableData = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`)
+      const apiUrl = import.meta.env.VITE_API_URL;
+      if (!apiUrl) {
+        throw new Error('API URL is not configured. Please check your environment variables.');
+      }
+      const response = await fetch(`${apiUrl}/api/users`);
       if (!response.ok) {
-        throw new Error('Failed to fetch users')
+        throw new Error('Failed to fetch users');
       }
       const data = await response.json()
       setUsers(data)
