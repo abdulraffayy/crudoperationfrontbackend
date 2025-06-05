@@ -8,10 +8,10 @@ import {
   TableRow,
 } from "../components/ui/table"
 import { Button } from "../components/ui/button"
-  import { Loader2, Trash2, Plus, Pencil } from "lucide-react"
-  import DeletePopup from "../dialouge/deletepopup"
-  import EditDialogue from "../dialouge/Editdialouge"
-  import AddDialogue from "../dialouge/adddialouge"
+import { Loader2, Trash2, Plus, Pencil } from "lucide-react"
+import DeletePopup from "../dialouge/deletepopup"
+import EditDialogue from "../dialouge/Editdialouge"
+import AddDialogue from "../dialouge/adddialouge"
 
 interface User {
   _id: string
@@ -33,7 +33,7 @@ const TableData = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/users')
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`)
       if (!response.ok) {
         throw new Error('Failed to fetch users')
       }
